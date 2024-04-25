@@ -6,7 +6,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: TestdbRoot
+      MYSQL_ROOT_PASSWORD: ttt
       MYSQL_DATABASE: testdb
     command:
       - --character-set-server=utf8mb4
