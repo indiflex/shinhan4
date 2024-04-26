@@ -129,11 +129,31 @@ show table status;
 
 analyze table Enroll;
 
+select * from Student;
+select * from Subject;
 
+-- 과목 - 담당쌤
+select s.*, p.name
+  from Subject s inner join Prof p on s.prof = p.id;
 
+update Subject set prof = (select id from Prof where name='교수3')
+ where id = 4;
+ 
+-- 교수명이 '교수3'인 과목의 이름 '음악'으로 변경하시오.
+select * from Subject s inner join Prof p on s.prof = p.id
+ where p.name = '교수3';
 
+/*
+update Subject s inner join Prof p on s.prof = p.id
+ set s.name = '음악'
+ where p.name = '교수3';
+*/
 
-
+select * from Subject;
+-- update Subject set prof = null
+ where id = 3;
+ 
+select * from Subject where prof is not null;
 
 
 
