@@ -80,4 +80,81 @@ select sub.*
   from (select * from Emp order by id desc limit 10, 11) sub
  order by sub.id;
  
+select dept, max(ename) maxname, min(ename), count(*) cnt,  -- 4
+      max(salary), min(salary) minsal
+  from Emp                                                  -- 1
+ group by dept                                              -- 2
+ having cnt >= 40 -- count(*) >= 40                         -- 3
+ order by max(ename); -- maxname;                           -- 5
+ 
+select * from Emp
+-- update Emp set salary = salary + dept
+ where salary = 900;
+ 
+-- ex) 부서별 최고 연봉자의 수를 부서명과 함께 출력하시오.
+select e.dept, d.dname, max(salary) maxsal, count(*) cnt
+  from Emp e inner join Dept d on e.dept = d.id
+ group by dept, salary
+ order by dept, maxsal desc;
+
+select e.dept, d.dname, max(salary) maxsal, count(*) cnt
+  from Emp e inner join Dept d on e.dept = d.id
+ where salary = (select max(salary) from Emp)
+ group by dept, salary
+ order by dept, maxsal desc;
+ 
+select dept, max(salary) from Emp group by dept;
+
+select e.dept, d.dname, max(salary) maxsal, count(*) cnt
+  from Emp e inner join Dept d on e.dept = d.id
+             inner join (select dept, max(salary) maxsal from Emp group by dept) maxdept
+                     on e.dept = maxdept.dept and e.salary = maxdept.maxsal
+ group by e.dept, e.salary;
+ 
+select count(*) from Emp where dept = 5 and salary=905;
+
+ 
+/*
+[
+  {dept: 1, data: [{id:1, ename: 홍길동,sa..}, ]},
+  {dept: 2, data: [emps..]},
+  ...
+]
+*/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
