@@ -50,3 +50,23 @@ alter table Dept add constraint fk_Dept_captain_Emp_id
   
 alter table Dept drop constraint fk_Dept_captain_Emp_id;
 alter table Dept drop index fk_Dept_captain_Emp_id;
+
+create table EmailLog(
+  id int unsigned not null auto_increment primary key,
+  sender int unsigned not null comment '발신자',
+  receiver varchar(1024) not null comment '수신자',
+  subject varchar(255) not null  comment '제목',
+  body text null comment '내용',
+  foreign key fk_EmailLog_sender_Emp (sender)
+    references Emp(id) on update cascade on delete cascade
+) ENGINE = MyIsam;
+
+alter table EmailLog engine = InnoDB;
+alter table EmailLog engine = MyISAM;
+
+desc EmailLog;
+show index from EmailLog;
+analyze table EmailLog;
+show table status;
+
+insert into schooldb.Prof (name) select '교수' from testdb.Emp where id <= 6;
