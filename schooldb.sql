@@ -103,11 +103,24 @@ insert into Enroll(subject, student) values(3, 3);
 insert into Enroll(subject, student) values(3, 1);
 insert into Enroll(subject, student) values(3, 2);
 
+select * from Subject;
 select * from Enroll;
+select mod(2, 10);
 
-select e.id, sbj.name as '과목명', stu.name '학생명'
+select * from Student;
+select distinct mobile from Student;
+
+select e.id, sbj.name as '과목명', stu.name '학생명', 
+    (case when mod(e.id, 2) = 1 then '홀수' else '짝수' end) as '홀짝1',
+    (case mod(e.id, 2) when 1 then '홀수' else '짝수' end) as '홀짝2',
+    (case when e.id = 5 then '55' when e.id = 2 then '22' else '100' end) as 'XX',
+    (case e.id when 5 then '55' when 2 then '22' else '100' end) as 'YY',
+    if(mod(e.id, 2) = 1, '홀수', '짝수') '홀짝3'
   from Enroll e inner join Subject sbj on e.subject = sbj.id
-                inner join Student stu on stu.id = e.student;
+                inner join Student stu on stu.id = e.student
+ where e.subject between 1 and 2 -- in (1,2)  -- e.subject = 1 or e.subject = 2
+   and stu.name like '_길%' -- like '홍%'; 
+ order by stu.id desc;
 
 desc student;
 
