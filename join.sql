@@ -70,3 +70,14 @@ analyze table EmailLog;
 show table status;
 
 insert into schooldb.Prof (name) select '교수' from testdb.Emp where id <= 6;
+
+show variables like '%dir';
+
+select * from Emp
+ order by id asc limit 230, 11;
+ 
+select sub.*
+  from (select * from Emp order by id desc limit 10, 11) sub
+ order by sub.id;
+ 
+
