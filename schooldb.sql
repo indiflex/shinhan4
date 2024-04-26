@@ -23,6 +23,14 @@ create table Student (
 
 show index from Student;
 show table status;
+select * from Student;
+
+insert into Student(name, birthdt, major, mobile, email)
+      values('홍길동', '2002-01-02', 1, '01012341234', 'hong@gmail.com');
+      
+insert into Student(name, birthdt, major, mobile, email) values 
+      ('홍길동', '2002-01-02', 1, '01012341234', 'hong@gmail.com'),
+      ('박길동', '2003-01-22', 1, '01012341235', 'park@gmail.com');
 
 alter table Student add column name varchar(31) not null default '' comment '이름';
 alter table Student modify column name varchar(31) not null default '' comment '이름' after updatedate;
@@ -58,6 +66,10 @@ create table Subject (
     on update cascade on delete set null
 );
 
+insert into Subject(name, prof) values('국어', 1);
+insert into Subject(name, prof) values ('수학', 2), ('과학', 2), ('미술', 2);
+
+select * from Subject;
 -- create temporary table ...
 
 create table Enroll (
@@ -72,10 +84,33 @@ create table Enroll (
     on update cascade on delete cascade
 );
 
+ALTER TABLE `schooldb`.`Enroll` 
+ADD UNIQUE INDEX `uniq_Enroll_subject_student` (`subject` ASC, `student` ASC) VISIBLE;
+
+insert into Enroll(subject, student) values(1, 1);
+insert into Enroll(subject, student) values(2, 2);
+
+-- Error Code: 1062. Duplicate entry '2-2' for key 'enroll.uniq_Enroll_subject_student'
+insert ignore into Enroll(subject, student) values
+  (2, 1), (2, 2);
+  
+-- 2 row(s) affected
+insert into Enroll(subject, student) values (2, 2)
+  on duplicate key update createdate = now();
+  
+insert into Enroll(subject, student) values(2, 3);
+insert into Enroll(subject, student) values(3, 3);
+insert into Enroll(subject, student) values(3, 1);
+insert into Enroll(subject, student) values(3, 2);
+
+select * from Enroll;
+
 desc student;
 
+show index from Enroll;
 show table status;
 
+analyze table Enroll;
 
 
 
