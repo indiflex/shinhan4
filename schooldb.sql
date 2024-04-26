@@ -105,6 +105,10 @@ insert into Enroll(subject, student) values(3, 2);
 
 select * from Enroll;
 
+select e.id, sbj.name as '과목명', stu.name '학생명'
+  from Enroll e inner join Subject sbj on e.subject = sbj.id
+                inner join Student stu on stu.id = e.student;
+
 desc student;
 
 show index from Enroll;
