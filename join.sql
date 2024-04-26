@@ -105,15 +105,31 @@ select e.dept, d.dname, max(salary) maxsal, count(*) cnt
  
 select dept, max(salary) from Emp group by dept;
 
-select e.dept, d.dname, max(salary) maxsal, count(*) cnt
+-- 부서별 최고 연봉자 수
+select e.dept, d.dname, max(salary) maxsal, count(*) cnt,
+    group_concat(e.id) empIds
   from Emp e inner join Dept d on e.dept = d.id
              inner join (select dept, max(salary) maxsal from Emp group by dept) maxdept
                      on e.dept = maxdept.dept and e.salary = maxdept.maxsal
  group by e.dept, e.salary;
+
+/*
+[
+  {dept: 1, salary: 2, data: [{id:1, ename: '홍길동', ...}, {id: 2, ename: '박길동', ...}]},
+  {dept: 1, salary: 2, [emps...]},
+]
+*/
  
 select count(*) from Emp where dept = 5 and salary=905;
 
- 
+/*
+select sub.dname, sub.maxsal
+  from (select e.dept, d.dname, max(salary) maxsal, count(*) cnt
+          from Emp e inner join Dept d on e.dept = d.id
+         group by dept, salary
+         order by dept, maxsal desc) sub
+ where ;
+ */
 /*
 [
   {dept: 1, data: [{id:1, ename: 홍길동,sa..}, ]},
@@ -122,15 +138,24 @@ select count(*) from Emp where dept = 5 and salary=905;
 ]
 */
  
+select * from Dept;
+select d1.dname '상위부서', d2.dname '하위부서'
+  from Dept d1 inner join Dept d2 on d1.id = d2.pid;
  
+select * from Emp;
  
+alter table Emp add column outdt date null comment '퇴사일';
+
+update Emp set outdt='2024-04-25' 
+ where id in (3,5);
+select curdate(), current_date();
+
+update Emp set outdt=curdate()
+ where id in (4,6);
  
- 
- 
- 
- 
- 
- 
+select * from Dept
+-- update Dept set captain = null
+ where captain in (select id from Emp where outdt is not null);
  
  
  
