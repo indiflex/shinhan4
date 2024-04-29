@@ -122,6 +122,8 @@ select e.dept, d.dname, max(salary) maxsal, count(*) cnt,
  
 select count(*) from Emp where dept = 5 and salary=905;
 
+select * from Dept;
+
 /*
 select sub.dname, sub.maxsal
   from (select e.dept, d.dname, max(salary) maxsal, count(*) cnt
