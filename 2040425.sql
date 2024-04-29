@@ -9,3 +9,6 @@ select * from Emp
 show processlist;
 kill 25; -- kill query
 
+desc Dept;
+select * from Dept;
+
